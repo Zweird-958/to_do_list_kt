@@ -1,69 +1,48 @@
 package pages
 
 import android.os.Build
-import android.widget.CheckBox
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
-import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.core.graphics.BlendModeColorFilterCompat
-import androidx.navigation.NavHostController
 import com.example.todolist.ui.theme.Purple200
-import components.BottomBar
 import kotlinclasses.MissionClass
 import kotlinclasses.allMissions
-import kotlinclasses.initMission
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun MissionsScaffold(navController: NavHostController){
+fun ScaffoldSample() {
+    val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
     Scaffold(
-        //topBar = { TopBar(navController, "Calendar") },
-        content = {
-            Missions()
-        },
+        scaffoldState = scaffoldState,
+        topBar = { TopAppBar(title = {Text("Top App Bar")},backgroundColor = MaterialTheme.colors.primary)  },
         floatingActionButtonPosition = FabPosition.End,
-        floatingActionButton = { FloatingActionButton(onClick = {
-            val newMission = MissionClass("Todo ${allMissions.size}")
-            newMission.addToList()}){
+        floatingActionButton = { FloatingActionButton(onClick = {}){
             Icon(imageVector = Icons.Default.Add, contentDescription = "fab icon")
         } },
-        bottomBar = { BottomBar(navController) }
+
+        drawerContent = { Text(text = "Drawer Menu 1") },
+        content = {
+            MissionsTest()
+        },
+        bottomBar = { BottomAppBar(backgroundColor = MaterialTheme.colors.primary) { Text("Bottom App Bar") } }
     )
 }
 
 
-@Composable
-fun HelloContent() {
-    Column(modifier = Modifier.padding(16.dp)) {
-        var name by remember { mutableStateOf("") }
-        if (name.isNotEmpty()) {
-            Text(
-                text = "Hello, $name!",
-                modifier = Modifier.padding(bottom = 8.dp),
-                style = MaterialTheme.typography.h5
-            )
-        }
-        OutlinedTextField(
-            value = name,
-            onValueChange = { name = it },
-            label = { Text("Name") }
-        )
-    }
-}
-
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun Missions(){
+fun MissionsTest() {
 
     Column(modifier = Modifier
         .fillMaxSize())
@@ -77,11 +56,20 @@ fun Missions(){
         ) {
 
             Text(text = "Hello")
-            
+
         }
 
         Column(Modifier.fillMaxSize()) {
 
+            Button(modifier = Modifier
+                .fillMaxWidth()
+                .background(MaterialTheme.colors.primary),
+                onClick = {
+                    val newMission = MissionClass("Todo ${allMissions.size}")
+                    newMission.addToList()
+                }) {
+                Text(text = "New Mission")
+            }
 
             HelloContent()
 
@@ -92,7 +80,7 @@ fun Missions(){
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
-                println(allMissions)
+
 
                 items(allMissions.size) { index ->
                     val mission = allMissions[index]
@@ -114,14 +102,15 @@ fun Missions(){
                                 onCheckedChange = {
                                     mission.checkMission()
                                     checkedState.value = it
-                                                  },
+                                },
                                 colors = CheckboxDefaults.colors(MaterialTheme.colors.primary))
 
 
-                                
+
                             Text(text = "Mission ${mission.name}  Priority : ${mission.priority}")
 
-                            Column(Modifier.fillMaxHeight(),
+                            Column(
+                                Modifier.fillMaxHeight(),
                                 horizontalAlignment = Alignment.CenterHorizontally,
                                 verticalArrangement = Arrangement.Center) {
 

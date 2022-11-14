@@ -7,14 +7,17 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import kotlinclasses.initMission
 import pages.MissionsScaffold
 import pages.Routes
+import pages.ScaffoldSample
 
 // TODO afficher uniquement quand c'est une page différente
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun ScreenMain() {
+    initMission()
     val navController = rememberNavController()
 
 
@@ -23,6 +26,11 @@ fun ScreenMain() {
 
         composable(Routes.Missions.route) {
             MissionsScaffold(navController)
+            BackHandler(true) {} // Bloquer le retour en arrière
+        }
+
+        composable(Routes.Test.route) {
+            ScaffoldSample()
             BackHandler(true) {} // Bloquer le retour en arrière
         }
 

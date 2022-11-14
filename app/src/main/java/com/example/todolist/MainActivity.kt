@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.pepalapp.pages.ScreenMain
 import com.example.todolist.ui.theme.ToDoListTheme
+import kotlinclasses.initMission
 
 class MainActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.O)

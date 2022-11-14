@@ -53,6 +53,18 @@ fun BottomBar(navController: NavHostController) {
                 println(test2)
             })
 
+        BottomNavigationItem(icon = {Column(
+            verticalArrangement = Arrangement.Center
+        ) {
+            Icon(imageVector = Icons.Default.AccountBox,"")
+        }
+        },
+            //label = { /*Text(text = "Account") */},
+            selected = (currentRoute == Routes.Test.route),
+            onClick = {
+                navController.navigate(Routes.Test.route)
+            })
+
 
 
     }

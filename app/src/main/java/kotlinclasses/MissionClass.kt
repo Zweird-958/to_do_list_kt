@@ -1,8 +1,14 @@
 package kotlinclasses
 
+import androidx.compose.runtime.*
 import java.util.*
 
 var allMissions: MutableList<MissionClass> = mutableListOf()
+@Composable
+fun initMission(){
+    allMissions = remember { mutableStateListOf() }
+
+}
 
 class MissionClass(name: String) {
 
@@ -13,8 +19,6 @@ class MissionClass(name: String) {
     fun addToList(){
         priority = allMissions.size
         allMissions += this
-        println("=========LIST==========")
-        println(allMissions)
     }
 
     fun changePriority(increase: Boolean){
