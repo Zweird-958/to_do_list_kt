@@ -5,6 +5,10 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
+
+var customColor = false
 
 private val DarkColorPalette = darkColors(
     primary = Purple200,
@@ -41,4 +45,15 @@ fun ToDoListTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composab
         shapes = Shapes,
         content = content
     )
+
+    val systemUiController = rememberSystemUiController()
+    SideEffect {
+        // Update all of the system bar colors to be transparent, and use
+        // dark icons if we're in light theme
+        systemUiController.setSystemBarsColor(
+            color = colors.background,
+            //darkIcons = !darkTheme
+        )
+    }
+
 }
