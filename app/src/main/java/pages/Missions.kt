@@ -11,17 +11,22 @@ import androidx.compose.material.*
 import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.navigation.NavHostController
 import com.example.todolist.ui.theme.Purple200
 import components.BottomBar
+import components.priorityButton
 import kotlinclasses.MissionClass
 import kotlinclasses.allMissions
 import kotlinclasses.initMission
+import kotlinclasses.notDoneMissions
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -33,8 +38,9 @@ fun MissionsScaffold(navController: NavHostController){
         },
         floatingActionButtonPosition = FabPosition.End,
         floatingActionButton = { FloatingActionButton(onClick = {
-            val newMission = MissionClass("Todo ${allMissions.size}")
-            newMission.addToList()}){
+            navController.navigate(Routes.AddMission.route)}
+
+        ){
             Icon(imageVector = Icons.Default.Add, contentDescription = "fab icon")
         } },
         bottomBar = { BottomBar(navController) }
@@ -42,28 +48,12 @@ fun MissionsScaffold(navController: NavHostController){
 }
 
 
-@Composable
-fun HelloContent() {
-    Column(modifier = Modifier.padding(16.dp)) {
-        var name by remember { mutableStateOf("") }
-        if (name.isNotEmpty()) {
-            Text(
-                text = "Hello, $name!",
-                modifier = Modifier.padding(bottom = 8.dp),
-                style = MaterialTheme.typography.h5
-            )
-        }
-        OutlinedTextField(
-            value = name,
-            onValueChange = { name = it },
-            label = { Text("Name") }
-        )
-    }
-}
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun Missions(){
+
+    //MissionClass("TEST").addToList()
 
     Column(modifier = Modifier
         .fillMaxSize())
@@ -73,17 +63,16 @@ fun Missions(){
         Column(modifier = Modifier
             .background(MaterialTheme.colors.primary)
             .fillMaxWidth()
-            .padding(top = 20.dp, end = 20.dp)
+            .padding(top = 40.dp, bottom = 40.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
 
-            Text(text = "Hello")
+            Text(text = "Missions")
             
         }
 
         Column(Modifier.fillMaxSize()) {
-
-
-            HelloContent()
 
             LazyColumn(modifier = Modifier
                 //.padding(top = 500.dp, bottom = 10.dp)
@@ -92,53 +81,59 @@ fun Missions(){
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
-                println(allMissions)
-
-                items(allMissions.size) { index ->
-                    val mission = allMissions[index]
+                items(notDoneMissions.size) { index ->
+                    val mission = notDoneMissions[index]
+                    
+                    // ITEM
+                    
                     Card(
-                        elevation = 10.dp,
-                        modifier = Modifier.fillMaxWidth(),
-                        border = BorderStroke(10.dp, Purple200),
+                        elevation = 2.dp,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(Color.Transparent),
+
                     ){
                         Row(
                             Modifier
                                 .fillMaxWidth()
-                                .background(MaterialTheme.colors.primaryVariant),
+                                .background(Color.Transparent)
+                                .padding(start = 20.dp),
                             verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.Center
+                            horizontalArrangement = Arrangement.SpaceBetween
                         ) {
 
+                            /*
                             val checkedState = remember { mutableStateOf(false) }
                             Checkbox(checked = checkedState.value,
                                 onCheckedChange = {
                                     mission.checkMission()
                                     checkedState.value = it
                                                   },
-                                colors = CheckboxDefaults.colors(MaterialTheme.colors.primary))
+                                colors = CheckboxDefaults.colors(MaterialTheme.colors.primary))*/
+
+                            mission.checkBoxElement()
 
 
                                 
-                            Text(text = "Mission ${mission.name}  Priority : ${mission.priority}")
+                            Text(text = "${mission.name}")
 
-                            Column(Modifier.fillMaxHeight(),
+                            Column(
+                                Modifier
+                                    .fillMaxHeight()
+                                    .padding(end = 20.dp),
                                 horizontalAlignment = Alignment.CenterHorizontally,
-                                verticalArrangement = Arrangement.Center) {
+                                verticalArrangement = Arrangement.SpaceEvenly,) {
 
-                                Button(onClick = {
-                                    mission.changePriority(true)
-                                }) {
-                                    Text(text = "UP")
-                                }
-                                Button(onClick = {
-                                    mission.changePriority(false)
-                                }) {
-                                    Text(text = "DOWN")
-                                }
+                                println("BUTTON======")
+                                priorityButton(mission = mission, increase = true, icon = Icons.Filled.KeyboardArrowUp)
+                                priorityButton(mission = mission, increase = false,icon = Icons.Filled.KeyboardArrowDown)
 
                             }
                         }
                     }
+                    
+                    Spacer(modifier = Modifier.height(10.dp))
+                    
                 }
 
 

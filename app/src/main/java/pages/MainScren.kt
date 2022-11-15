@@ -8,6 +8,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import kotlinclasses.initMission
+import pages.AddMissions
 import pages.MissionsScaffold
 import pages.Routes
 import pages.ScaffoldSample
@@ -27,6 +28,11 @@ fun ScreenMain() {
         composable(Routes.Missions.route) {
             MissionsScaffold(navController)
             BackHandler(true) {} // Bloquer le retour en arrière
+        }
+
+        composable(Routes.AddMission.route) {
+            AddMissions(navController)
+            BackHandler(false) {} // Autoriqer le retour en arrière
         }
 
         composable(Routes.Test.route) {

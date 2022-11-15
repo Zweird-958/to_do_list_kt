@@ -71,8 +71,6 @@ fun MissionsTest() {
                 Text(text = "New Mission")
             }
 
-            HelloContent()
-
             LazyColumn(modifier = Modifier
                 //.padding(top = 500.dp, bottom = 10.dp)
                 .fillMaxSize()
