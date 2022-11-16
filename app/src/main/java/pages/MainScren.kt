@@ -35,8 +35,8 @@ fun ScreenMain() {
             BackHandler(false) {} // Autoriqer le retour en arrière
         }
 
-        composable(Routes.Test.route) {
-            ScaffoldSample()
+        composable(Routes.Swipe.route) {
+            ScaffoldSample(navController)
             BackHandler(true) {} // Bloquer le retour en arrière
         }
 

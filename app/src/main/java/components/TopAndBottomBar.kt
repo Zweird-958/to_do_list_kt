@@ -60,9 +60,9 @@ fun BottomBar(navController: NavHostController) {
         }
         },
             //label = { /*Text(text = "Account") */},
-            selected = (currentRoute == Routes.Test.route),
+            selected = (currentRoute == Routes.Swipe.route),
             onClick = {
-                navController.navigate(Routes.Test.route)
+                navController.navigate(Routes.Swipe.route)
             })
 
 

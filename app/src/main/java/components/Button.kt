@@ -53,9 +53,6 @@ fun createButton(baseText: String, navController: NavHostController, missionName
 
 @Composable
 fun priorityButton(mission: MissionClass, increase: Boolean, icon: ImageVector){
-
-    println("HELLO========")
-
     Button(onClick = { mission.changePriority(increase) },
         //enabled = false,
         border = BorderStroke(0.dp,Color.Transparent),
