@@ -26,7 +26,7 @@ private val LightColorPalette = lightColors(
     primaryVariant = Teal200,
     secondary = Teal200,
 
-    secondaryVariant = Color.White,
+    secondaryVariant = Gray200,
 
     background = Color.White,
 

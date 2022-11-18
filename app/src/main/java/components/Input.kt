@@ -4,10 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Icon
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.runtime.*
@@ -54,6 +51,7 @@ fun OutlineInput(yourLabel: String, icon: ImageVector, description: String,
         },
         leadingIcon = { Icon(imageVector = icon, contentDescription = description) },
         label = { Text(text = yourLabel) },
+        colors = TextFieldDefaults.textFieldColors(textColor = MaterialTheme.colors.onSecondary)
 
         )
 }
