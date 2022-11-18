@@ -22,18 +22,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import components.BottomBar
-import components.getData
 import components.priorityButton
-import components.saveData
+import kotlinclasses.doneMissions
 import kotlinclasses.notDoneMissions
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun MissionsScaffold(navController: NavHostController) {
+fun MissionsDoneScaffold(navController: NavHostController) {
     Scaffold(
         //topBar = { TopBar(navController, "Calendar") },
         content = {
-            Missions()
+            MissionsDone()
         },
         floatingActionButtonPosition = FabPosition.End,
         floatingActionButton = {
@@ -52,9 +51,7 @@ fun MissionsScaffold(navController: NavHostController) {
 @OptIn(ExperimentalMaterialApi::class)
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun Missions() {
-
-    //MissionClass("TEST").addToList()
+fun MissionsDone() {
 
     Column(
         modifier = Modifier
@@ -73,18 +70,12 @@ fun Missions() {
         ) {
 
             Text(text = "Missions")
-            Button(onClick = { saveData() }) {
-               Text("Sava Data")
-            }
-            Button(onClick = { getData() }) {
-                Text("Load Data")
-            }
 
         }
 
         Column(Modifier.fillMaxSize()) {
 
-            showNotDoneMission()
+            showDoneMission()
 
             }
 
@@ -95,7 +86,8 @@ fun Missions() {
 
 @ExperimentalMaterialApi
 @Composable
-fun showNotDoneMission() {
+fun showDoneMission() {
+
 
     LazyColumn(
         modifier = Modifier
@@ -104,7 +96,7 @@ fun showNotDoneMission() {
             .background(MaterialTheme.colors.secondary),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        items(notDoneMissions, { it.priority }) { mission ->
+        items(doneMissions, { it.priority }) { mission ->
             //val mission = notDoneMissions[index]
             val targetEnd = DismissValue.DismissedToEnd
             val targetStart = DismissValue.DismissedToStart
@@ -153,7 +145,7 @@ fun showNotDoneMission() {
                                     .padding(start = 10.dp)
                             ) {
                                 Icon(
-                                    imageVector = Icons.Default.Check,
+                                    imageVector = Icons.Default.Close,
                                     contentDescription = null,
                                     tint = Color.White,
                                     modifier = Modifier.align(Alignment.CenterHorizontally)

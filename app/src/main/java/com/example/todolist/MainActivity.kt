@@ -14,6 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.pepalapp.pages.ScreenMain
 import com.example.todolist.ui.theme.ToDoListTheme
+import components.getActivity
+import components.getData
 import kotlinclasses.MissionClass
 import kotlinclasses.initMission
 
@@ -25,9 +27,11 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ToDoListTheme {
-
+                getActivity(this)
                 // A surface container using the 'background' color from the theme
                 ScreenMain()
+                Thread.sleep(100)
+                getData()
             }
         }
     }

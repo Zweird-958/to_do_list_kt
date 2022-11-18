@@ -6,6 +6,7 @@ import androidx.compose.material.CheckboxDefaults
 import androidx.compose.material.DismissDirection
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.*
+import components.saveData
 import java.util.*
 
 var allMissions: MutableList<MissionClass> = mutableListOf()
@@ -30,6 +31,7 @@ class MissionClass(name: String) {
         priority = notDoneMissions.size
         allMissions += this
         notDoneMissions += this
+        saveData()
     }
 
 
@@ -72,6 +74,8 @@ class MissionClass(name: String) {
             Collections.swap(notDoneMissions, indexOne, indexTwo)
         }
 
+        saveData()
+
     }
 
 
@@ -94,11 +98,14 @@ class MissionClass(name: String) {
             notDoneMissions += this
         }
 
+        saveData()
+
     }
 
     fun deleteToList(){
         notDoneMissions.remove(this)
         updatePriority()
+        saveData()
     }
 
 }

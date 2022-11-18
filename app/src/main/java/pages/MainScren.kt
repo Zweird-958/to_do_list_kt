@@ -8,10 +8,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import kotlinclasses.initMission
-import pages.AddMissions
-import pages.MissionsScaffold
-import pages.Routes
-import pages.ScaffoldSample
+import pages.*
 
 // TODO afficher uniquement quand c'est une page différente
 
@@ -35,8 +32,8 @@ fun ScreenMain() {
             BackHandler(false) {} // Autoriqer le retour en arrière
         }
 
-        composable(Routes.Swipe.route) {
-            ScaffoldSample(navController)
+        composable(Routes.MissionsDone.route) {
+            MissionsDoneScaffold(navController)
             BackHandler(true) {} // Bloquer le retour en arrière
         }
 
