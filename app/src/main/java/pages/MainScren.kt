@@ -15,7 +15,6 @@ import pages.*
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun ScreenMain() {
-    initMission()
     val navController = rememberNavController()
 
 

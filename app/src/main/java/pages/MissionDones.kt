@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import components.BottomBar
 import components.priorityButton
+import kotlinclasses.allMissions
 import kotlinclasses.doneMissions
 import kotlinclasses.notDoneMissions
 
@@ -111,7 +112,8 @@ fun showDoneMission() {
                         }
                         // Right To Left
                         else if (it == targetStart) {
-                            notDoneMissions.remove(mission)
+                            doneMissions.remove(mission)
+                            allMissions.remove(mission)
                         }
                         true
                     }
@@ -187,20 +189,6 @@ fun showDoneMission() {
                         }
                     }
 
-                    if (target == targetEnd) {
-                        /*
-                        println("==================ARCHIVE")
-                        println(mission.name)
-                        if (!mission.done) {
-                            mission.checkMission()
-                            println(notDoneMissions.size)
-                            println("MAKETOARCHIVE===================")
-                        }*/
-                        //notDoneMissions.remove(mission)
-
-                    } else if (target == targetStart) {
-                        println("DELETEIIIIT")
-                    }
 
                 },
                 /**** Dismiss Content */
@@ -224,8 +212,8 @@ fun showDoneMission() {
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
 
-                            val state = remember { mutableStateOf(false) }
-                            state.value = mission.done
+                            //val state = remember { mutableStateOf(false) }
+                            //state.value = mission.done
 
                             /*Checkbox(
                                 checked = state.value,

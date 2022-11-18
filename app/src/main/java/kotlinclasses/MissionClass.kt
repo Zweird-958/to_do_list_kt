@@ -6,14 +6,17 @@ import androidx.compose.material.CheckboxDefaults
 import androidx.compose.material.DismissDirection
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.*
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import components.saveData
 import java.util.*
 
-var allMissions: MutableList<MissionClass> = mutableListOf()
-var doneMissions: MutableList<MissionClass> = mutableListOf()
-var notDoneMissions: MutableList<MissionClass> = mutableListOf()
+var test: SnapshotStateList<MissionClass>? = null
+var allMissions: SnapshotStateList<MissionClass> = mutableStateListOf()
+var doneMissions: SnapshotStateList<MissionClass> = mutableStateListOf()
+var notDoneMissions: SnapshotStateList<MissionClass> = mutableStateListOf()
 @Composable
 fun initMission(){
+    test = remember { mutableStateListOf() }
     allMissions = remember { mutableStateListOf() }
     doneMissions = remember { mutableStateListOf() }
     notDoneMissions = remember { mutableStateListOf() }

@@ -2,13 +2,17 @@ package components
 
 import android.app.Activity
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.activity.ComponentActivity
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import kotlinclasses.MissionClass
-import kotlinclasses.allMissions
-import kotlinclasses.doneMissions
-import kotlinclasses.notDoneMissions
+import kotlinclasses.*
+import pages.Missions
 
 var mainActivity: Activity? = null
 
@@ -35,19 +39,36 @@ fun saveData() {
 
 }
 
+@Composable
 fun getData() {
 
-    println("====DATA")
-
+    initMission()
     val sharedPref = mainActivity?.getPreferences(Context.MODE_PRIVATE) ?: return
+
+    if (!sharedPref.contains("DoneMissions")){
+        saveData()
+        return
+    }
+
     val gson = Gson()
 
     val json = sharedPref.getString("Missions","")
     val jsonNot = sharedPref.getString("NotDoneMissions","")
     val jsonDone = sharedPref.getString("DoneMissions","")
 
-    allMissions = gson.fromJson(json, Array<MissionClass>::class.java).toMutableList()
-    notDoneMissions = gson.fromJson(jsonNot, Array<MissionClass>::class.java).toMutableList()
-    doneMissions = gson.fromJson(jsonDone, Array<MissionClass>::class.java).toMutableList()
+    val allList = gson.fromJson(json, Array<MissionClass>::class.java).toMutableList()
+    for (item in allList){
+        allMissions += item
+    }
+
+    val notList = gson.fromJson(jsonNot, Array<MissionClass>::class.java).toMutableList()
+    for (item in notList){
+        notDoneMissions += item
+    }
+
+    val doneList = gson.fromJson(jsonDone, Array<MissionClass>::class.java).toMutableList()
+    for (item in notList){
+        doneMissions += item
+    }
 
 }

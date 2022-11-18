@@ -25,6 +25,7 @@ import components.BottomBar
 import components.getData
 import components.priorityButton
 import components.saveData
+import kotlinclasses.allMissions
 import kotlinclasses.notDoneMissions
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -73,12 +74,13 @@ fun Missions() {
         ) {
 
             Text(text = "Missions")
+            /*
             Button(onClick = { saveData() }) {
                Text("Sava Data")
             }
             Button(onClick = { getData() }) {
                 Text("Load Data")
-            }
+            }*/
 
         }
 
@@ -105,7 +107,7 @@ fun showNotDoneMission() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         items(notDoneMissions, { it.priority }) { mission ->
-            //val mission = notDoneMissions[index]
+
             val targetEnd = DismissValue.DismissedToEnd
             val targetStart = DismissValue.DismissedToStart
             val dismissState =
@@ -120,6 +122,7 @@ fun showNotDoneMission() {
                         // Right To Left
                         else if (it == targetStart) {
                             notDoneMissions.remove(mission)
+                            allMissions.remove(mission)
                         }
                         true
                     }

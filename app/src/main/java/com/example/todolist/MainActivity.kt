@@ -30,7 +30,6 @@ class MainActivity : ComponentActivity() {
                 getActivity(this)
                 // A surface container using the 'background' color from the theme
                 ScreenMain()
-                Thread.sleep(100)
                 getData()
             }
         }
