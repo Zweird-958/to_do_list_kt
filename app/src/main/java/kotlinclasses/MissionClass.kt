@@ -7,21 +7,13 @@ import androidx.compose.material.DismissDirection
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.runtime.snapshots.SnapshotStateList
+import com.example.todolist.MainActivity
+import components.allMissions
+import components.doneMissions
+import components.notDoneMissions
 import components.saveData
 import java.util.*
 
-var test: SnapshotStateList<MissionClass>? = null
-var allMissions: SnapshotStateList<MissionClass> = mutableStateListOf()
-var doneMissions: SnapshotStateList<MissionClass> = mutableStateListOf()
-var notDoneMissions: SnapshotStateList<MissionClass> = mutableStateListOf()
-@Composable
-fun initMission(){
-    test = remember { mutableStateListOf() }
-    allMissions = remember { mutableStateListOf() }
-    doneMissions = remember { mutableStateListOf() }
-    notDoneMissions = remember { mutableStateListOf() }
-
-}
 
 
 class MissionClass(name: String) {

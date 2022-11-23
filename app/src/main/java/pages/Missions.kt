@@ -21,12 +21,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.todolist.MainActivity
 import components.BottomBar
-import components.getData
+import components.allMissions
+import components.notDoneMissions
 import components.priorityButton
-import components.saveData
-import kotlinclasses.allMissions
-import kotlinclasses.notDoneMissions
+
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -124,6 +124,7 @@ fun showNotDoneMission() {
                             notDoneMissions.remove(mission)
                             allMissions.remove(mission)
                         }
+
                         true
                     }
                 )
@@ -144,7 +145,6 @@ fun showNotDoneMission() {
                             .clip(RoundedCornerShape(5.dp))
                             .background(color)
                     var direction = dismissState.dismissDirection
-                    val target = dismissState.targetValue
 
                     if (direction == DismissDirection.StartToEnd) {
                         Box(
@@ -161,12 +161,6 @@ fun showNotDoneMission() {
                                     tint = Color.White,
                                     modifier = Modifier.align(Alignment.CenterHorizontally)
                                 )
-                                /*
-                                Text(
-                                    text = "Move to Archive", fontWeight = FontWeight.Bold,
-                                    textAlign = TextAlign.Center,
-                                    color = Color.White
-                                )*/
 
                             }
 
@@ -186,33 +180,10 @@ fun showNotDoneMission() {
                                     tint = Color.White,
                                     modifier = Modifier.align(Alignment.CenterHorizontally)
                                 )
-                                /*
-                                Text(
-                                    text = "Move to Bin",
-                                    textAlign = TextAlign.Center,
-                                    fontWeight = FontWeight.Bold,
-                                    color = Color.LightGray
-                                )*/
 
                             }
                         }
                     }
-
-                    if (target == targetEnd) {
-                        /*
-                        println("==================ARCHIVE")
-                        println(mission.name)
-                        if (!mission.done) {
-                            mission.checkMission()
-                            println(notDoneMissions.size)
-                            println("MAKETOARCHIVE===================")
-                        }*/
-                        //notDoneMissions.remove(mission)
-
-                    } else if (target == targetStart) {
-                        println("DELETEIIIIT")
-                    }
-
                 },
                 /**** Dismiss Content */
                 dismissContent = {

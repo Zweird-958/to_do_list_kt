@@ -21,11 +21,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.todolist.MainActivity
 import components.BottomBar
+import components.allMissions
+import components.doneMissions
 import components.priorityButton
-import kotlinclasses.allMissions
-import kotlinclasses.doneMissions
-import kotlinclasses.notDoneMissions
+
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable

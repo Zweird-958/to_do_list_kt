@@ -7,7 +7,6 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import kotlinclasses.initMission
 import pages.*
 
 // TODO afficher uniquement quand c'est une page différente

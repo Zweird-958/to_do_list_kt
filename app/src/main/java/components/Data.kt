@@ -16,9 +16,14 @@ import pages.Missions
 
 var mainActivity: Activity? = null
 
-fun getActivity(activity: Activity){
+fun getActivity(activity: Activity) {
     mainActivity = activity
 }
+
+
+var allMissions: SnapshotStateList<MissionClass> = mutableStateListOf()
+var notDoneMissions: SnapshotStateList<MissionClass> = mutableStateListOf()
+var doneMissions: SnapshotStateList<MissionClass> = mutableStateListOf()
 
 //saving data
 fun saveData() {
@@ -42,33 +47,39 @@ fun saveData() {
 @Composable
 fun getData() {
 
-    initMission()
     val sharedPref = mainActivity?.getPreferences(Context.MODE_PRIVATE) ?: return
 
-    if (!sharedPref.contains("DoneMissions")){
+    if (!sharedPref.contains("DoneMissions")) {
         saveData()
         return
     }
 
     val gson = Gson()
 
-    val json = sharedPref.getString("Missions","")
-    val jsonNot = sharedPref.getString("NotDoneMissions","")
-    val jsonDone = sharedPref.getString("DoneMissions","")
+    val json = sharedPref.getString("Missions", "")
+    val jsonNot = sharedPref.getString("NotDoneMissions", "")
+    val jsonDone = sharedPref.getString("DoneMissions", "")
+
+    allMissions = remember { mutableStateListOf() }
 
     val allList = gson.fromJson(json, Array<MissionClass>::class.java).toMutableList()
-    for (item in allList){
+    for (item in allList) {
         allMissions += item
     }
 
     val notList = gson.fromJson(jsonNot, Array<MissionClass>::class.java).toMutableList()
-    for (item in notList){
+    for (item in notList) {
         notDoneMissions += item
     }
 
     val doneList = gson.fromJson(jsonDone, Array<MissionClass>::class.java).toMutableList()
-    for (item in notList){
+    for (item in doneList) {
         doneMissions += item
     }
 
 }
+
+
+
+
+
