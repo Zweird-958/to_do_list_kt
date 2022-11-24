@@ -3,6 +3,8 @@ package pages
 import android.os.Build
 import android.widget.CheckBox
 import androidx.annotation.RequiresApi
+import androidx.compose.animation.core.AnimationSpec
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -106,7 +108,8 @@ fun showNotDoneMission() {
             .background(MaterialTheme.colors.secondary),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        items(notDoneMissions, { it.priority }) { mission ->
+        items(notDoneMissions) { mission ->
+
 
             val targetEnd = DismissValue.DismissedToEnd
             val targetStart = DismissValue.DismissedToStart
@@ -165,6 +168,18 @@ fun showNotDoneMission() {
                             }
 
                         }
+                        println("===================test")
+                        val isSwiped = dismissState.progress.fraction >= 0.3
+                        //dismissState.animateTo(targetEnd,tween(1000))
+                        //dismissState.reset()
+                        println(isSwiped)
+                        if (isSwiped){
+                            LaunchedEffect(Unit) {
+                                dismissState.reset()
+                            }
+                            //mission.checkMission()
+                        }
+                        println()
                     } else {
                         Box(
                             modifier = boxModifier
@@ -248,7 +263,7 @@ fun showNotDoneMission() {
                 },
                 directions = setOf(DismissDirection.EndToStart, DismissDirection.StartToEnd),
             )
-        }
+       }
 
     }
     /*** Set Direction to dismiss */

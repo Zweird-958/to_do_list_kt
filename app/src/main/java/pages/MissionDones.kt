@@ -71,7 +71,7 @@ fun MissionsDone() {
             verticalArrangement = Arrangement.Center
         ) {
 
-            Text(text = "Missions")
+            Text(text = "Done Missions")
 
         }
 
@@ -98,7 +98,7 @@ fun showDoneMission() {
             .background(MaterialTheme.colors.secondary),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        items(doneMissions, { it.priority }) { mission ->
+        items(doneMissions) { mission ->
             //val mission = notDoneMissions[index]
             val targetEnd = DismissValue.DismissedToEnd
             val targetStart = DismissValue.DismissedToStart
@@ -200,7 +200,8 @@ fun showDoneMission() {
                         elevation = 2.dp,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(20.dp)
+                            .padding(start = 20.dp, end = 20.dp, bottom = 7.dp, top = 7.dp)
+                            .height(80.dp)
                             .background(Color.Transparent),
 
                         ) {
@@ -230,26 +231,7 @@ fun showDoneMission() {
 
                             Text(text = "${mission.name}")
 
-                            Column(
-                                Modifier
-                                    .fillMaxHeight()
-                                    .padding(end = 20.dp),
-                                horizontalAlignment = Alignment.CenterHorizontally,
-                                verticalArrangement = Arrangement.SpaceEvenly,
-                            ) {
 
-                                priorityButton(
-                                    mission = mission,
-                                    increase = true,
-                                    icon = Icons.Filled.KeyboardArrowUp
-                                )
-                                priorityButton(
-                                    mission = mission,
-                                    increase = false,
-                                    icon = Icons.Filled.KeyboardArrowDown
-                                )
-
-                            }
                         }
                     }
                 },

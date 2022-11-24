@@ -14,20 +14,26 @@ import components.notDoneMissions
 import components.saveData
 import java.util.*
 
-
+var globalId = 0;
 
 class MissionClass(name: String) {
 
+    var id: Int = 0
     var name = name
     var priority = notDoneMissions.size + 1
     var done = false
 
     fun addToList(){
+        this.id = globalId
+        globalId++
+        println("================id")
+        println(id)
         priority = notDoneMissions.size
         allMissions += this
         notDoneMissions += this
         saveData()
     }
+
 
 
     fun changePriority(increase: Boolean){
