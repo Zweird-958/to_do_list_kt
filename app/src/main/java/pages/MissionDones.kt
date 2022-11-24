@@ -132,7 +132,7 @@ fun showDoneMission() {
                     val boxModifier =
                         Modifier
                             .fillMaxSize()
-                            .padding(20.dp)
+                            .padding(start = 20.dp, end = 20.dp, bottom = 7.dp, top = 7.dp)
                             .clip(RoundedCornerShape(5.dp))
                             .background(color)
                     var direction = dismissState.dismissDirection
