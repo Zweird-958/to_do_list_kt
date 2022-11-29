@@ -38,7 +38,7 @@ fun BottomBar(navController: NavHostController) {
         BottomNavigationItem(icon = {Column(
                 verticalArrangement = Arrangement.Center
         ) {
-            Icon(imageVector = Icons.Default.AccountBox,"")
+            Icon(imageVector = Icons.Default.Close,"")
         }
         },
             //label = { /*Text(text = "Account") */},
@@ -56,7 +56,7 @@ fun BottomBar(navController: NavHostController) {
         BottomNavigationItem(icon = {Column(
             verticalArrangement = Arrangement.Center
         ) {
-            Icon(imageVector = Icons.Default.AccountBox,"")
+            Icon(imageVector = Icons.Default.Check,"")
         }
         },
             //label = { /*Text(text = "Account") */},

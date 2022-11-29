@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
+import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.runtime.*
@@ -16,6 +17,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalAutofill
 import androidx.compose.ui.platform.LocalAutofillTree
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
@@ -50,8 +53,8 @@ fun OutlineInput(yourLabel: String, icon: ImageVector, description: String,
             rememberText.value = it
         },
         leadingIcon = { Icon(imageVector = icon, contentDescription = description) },
-        label = { Text(text = yourLabel) },
-        colors = TextFieldDefaults.textFieldColors(textColor = MaterialTheme.colors.onSecondary)
+        label = { Text(text = yourLabel, color = MaterialTheme.colors.primary) },
+        colors = TextFieldDefaults.textFieldColors(textColor = Color.White)
 
         )
 }

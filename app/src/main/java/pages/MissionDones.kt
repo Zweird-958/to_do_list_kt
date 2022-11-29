@@ -36,16 +36,6 @@ fun MissionsDoneScaffold(navController: NavHostController) {
         content = {
             MissionsDone()
         },
-        floatingActionButtonPosition = FabPosition.End,
-        floatingActionButton = {
-            FloatingActionButton(onClick = {
-                navController.navigate(Routes.AddMission.route)
-            }
-
-            ) {
-                Icon(imageVector = Icons.Default.Add, contentDescription = "fab icon")
-            }
-        },
         bottomBar = { BottomBar(navController) }
     )
 }
@@ -93,9 +83,9 @@ fun showDoneMission() {
 
     LazyColumn(
         modifier = Modifier
-            //.padding(top = 500.dp, bottom = 10.dp)
+            .padding(bottom = 60.dp)
             .fillMaxSize()
-            .background(MaterialTheme.colors.secondary),
+            .background(MaterialTheme.colors.background),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         items(doneMissions) { mission ->
@@ -113,8 +103,7 @@ fun showDoneMission() {
                         }
                         // Right To Left
                         else if (it == targetStart) {
-                            doneMissions.remove(mission)
-                            allMissions.remove(mission)
+                            mission.deleteToList()
                         }
                         true
                     }

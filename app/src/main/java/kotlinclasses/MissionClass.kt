@@ -1,39 +1,26 @@
 package kotlinclasses
 
-import android.service.autofill.Validators.or
-import androidx.compose.material.Checkbox
-import androidx.compose.material.CheckboxDefaults
-import androidx.compose.material.DismissDirection
-import androidx.compose.material.MaterialTheme
-import androidx.compose.runtime.*
 import androidx.compose.runtime.snapshots.SnapshotStateList
-import com.example.todolist.MainActivity
+import com.google.gson.Gson
 import components.allMissions
 import components.doneMissions
 import components.notDoneMissions
 import components.saveData
 import java.util.*
 
-var globalId = 0;
+class MissionClass(name: String, toDo: SnapshotStateList<String>) {
 
-class MissionClass(name: String) {
-
-    var id: Int = 0
     var name = name
     var priority = notDoneMissions.size + 1
     var done = false
+    val toDo = toDo
 
     fun addToList(){
-        this.id = globalId
-        globalId++
-        println("================id")
-        println(id)
         priority = notDoneMissions.size
         allMissions += this
         notDoneMissions += this
         saveData()
     }
-
 
 
     fun changePriority(increase: Boolean){
@@ -104,9 +91,34 @@ class MissionClass(name: String) {
     }
 
     fun deleteToList(){
-        notDoneMissions.remove(this)
+        val isAllList: Boolean = this.isOnList(allMissions)
+        val isDoneList: Boolean = this.isOnList(doneMissions)
+        val isNotList: Boolean = this.isOnList(notDoneMissions)
+        if (isAllList){
+            allMissions.remove(this)
+        }
+        else if (isDoneList){
+            doneMissions.remove(this)
+        }
+        else if (isNotList){
+            notDoneMissions.remove(this)
+        }
         updatePriority()
         saveData()
     }
 
+    fun isOnList(list: SnapshotStateList<MissionClass>): Boolean {
+        return list.contains(this)
+    }
+
+
+}
+fun toJson(mission: MissionClass): String? {
+    val gson = Gson()
+    return gson.toJson(mission)
+}
+
+fun toClass(json: String?): MissionClass? {
+    val gson = Gson()
+    return gson.fromJson(json, MissionClass::class.java)
 }

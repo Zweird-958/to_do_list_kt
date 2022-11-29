@@ -67,10 +67,14 @@ fun getData() {
         allMissions += item
     }
 
+    notDoneMissions = remember { mutableStateListOf() }
+
     val notList = gson.fromJson(jsonNot, Array<MissionClass>::class.java).toMutableList()
     for (item in notList) {
         notDoneMissions += item
     }
+
+    doneMissions = remember { mutableStateListOf() }
 
     val doneList = gson.fromJson(jsonDone, Array<MissionClass>::class.java).toMutableList()
     for (item in doneList) {

@@ -8,25 +8,25 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.runtime.*
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import components.OutlineInput
-import components.createButton
-import components.toDoButton
+import kotlinclasses.toClass
 
 
 @SuppressLint("UnrememberedMutableState")
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun AddMissions(navController: NavHostController) {
+fun SelectMission(navController: NavHostController, missionSelected: String?) {
+
+    if (missionSelected == null) {
+        navController.navigate(Routes.Missions.route)
+    }
+
+    val mission = toClass(missionSelected)
 
     Column(
         modifier = Modifier
@@ -44,7 +44,9 @@ fun AddMissions(navController: NavHostController) {
             verticalArrangement = Arrangement.Center
         ) {
 
-            Text(text = "Add New Mission", color = Color.White)
+            if (missionSelected != null && mission != null) {
+                Text(text = mission.name, color = Color.White)
+            }
 
         }
 
@@ -55,7 +57,7 @@ fun AddMissions(navController: NavHostController) {
                 .padding(15.dp)
         ) {
 
-            val nameState = remember {
+            /*val nameState = remember {
                 mutableStateOf("")
             }
             OutlineInput(
@@ -63,39 +65,21 @@ fun AddMissions(navController: NavHostController) {
                 icon = Icons.Default.Add,
                 description = "",
                 rememberText = nameState
-            )
-
-            var toDo: SnapshotStateList<String> = remember {
-                mutableStateListOf()
-            }
-
-            val toDoState = remember {
-                mutableStateOf("")
-            }
-            OutlineInput(
-                yourLabel = "To Do",
-                icon = Icons.Default.Check,
-                description = "",
-                rememberText = toDoState
-            )
-
-            toDoButton(baseText = "Add To Do", toDoName = toDoState, toDo = toDo)
-
+            )*/
 
 
             LazyColumn(modifier = Modifier.height(50.dp)) {
-                items(toDo) { itemDo ->
-                    Text(itemDo, color = MaterialTheme.colors.secondaryVariant)
+                if (mission != null) {
+                    items(mission.toDo) { itemDo ->
+                        Text(itemDo, color = MaterialTheme.colors.secondaryVariant)
+                    }
                 }
 
             }
 
-            createButton(
-                baseText = "Create",
-                navController = navController,
-                missionName = nameState,
-                toDo = toDo
-            )
+            // Change Informations
+
+
         }
 
 

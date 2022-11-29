@@ -1,12 +1,7 @@
 package pages
 
 import android.os.Build
-import android.widget.CheckBox
 import androidx.annotation.RequiresApi
-import androidx.compose.animation.core.AnimationSpec
-import androidx.compose.animation.core.tween
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -28,6 +23,7 @@ import components.BottomBar
 import components.allMissions
 import components.notDoneMissions
 import components.priorityButton
+import kotlinclasses.toJson
 
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -36,15 +32,18 @@ fun MissionsScaffold(navController: NavHostController) {
     Scaffold(
         //topBar = { TopBar(navController, "Calendar") },
         content = {
-            Missions()
+            Missions(navController)
         },
         floatingActionButtonPosition = FabPosition.End,
         floatingActionButton = {
-            FloatingActionButton(onClick = {
-                navController.navigate(Routes.AddMission.route)
-            }
+            FloatingActionButton(
+                onClick = {
+                    navController.navigate(Routes.AddMission.route)
+                },
+                backgroundColor = MaterialTheme.colors.primary,
+                contentColor = Color.White,
 
-            ) {
+                ) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = "fab icon")
             }
         },
@@ -55,7 +54,7 @@ fun MissionsScaffold(navController: NavHostController) {
 @OptIn(ExperimentalMaterialApi::class)
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun Missions() {
+fun Missions(navController: NavHostController) {
 
     //MissionClass("TEST").addToList()
 
@@ -88,24 +87,24 @@ fun Missions() {
 
         Column(Modifier.fillMaxSize()) {
 
-            showNotDoneMission()
-
-            }
-
+            showNotDoneMission(navController)
 
         }
+
+
+    }
 
 }
 
 @ExperimentalMaterialApi
 @Composable
-fun showNotDoneMission() {
+fun showNotDoneMission(navController: NavHostController) {
 
     LazyColumn(
         modifier = Modifier
-            //.padding(top = 500.dp, bottom = 10.dp)
+            .padding(bottom = 60.dp)
             .fillMaxSize()
-            .background(MaterialTheme.colors.secondary),
+            .background(MaterialTheme.colors.background),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         items(notDoneMissions) { mission ->
@@ -124,8 +123,7 @@ fun showNotDoneMission() {
                         }
                         // Right To Left
                         else if (it == targetStart) {
-                            notDoneMissions.remove(mission)
-                            allMissions.remove(mission)
+                            mission.deleteToList()
                         }
 
                         true
@@ -144,7 +142,7 @@ fun showNotDoneMission() {
                     val boxModifier =
                         Modifier
                             .fillMaxSize()
-                            .padding(20.dp)
+                            .padding(start = 20.dp, end = 20.dp, bottom = 7.dp, top = 7.dp)
                             .clip(RoundedCornerShape(5.dp))
                             .background(color)
                     var direction = dismissState.dismissDirection
@@ -173,7 +171,7 @@ fun showNotDoneMission() {
                         //dismissState.animateTo(targetEnd,tween(1000))
                         //dismissState.reset()
                         println(isSwiped)
-                        if (isSwiped){
+                        if (isSwiped) {
                             LaunchedEffect(Unit) {
                                 dismissState.reset()
                             }
@@ -208,7 +206,7 @@ fun showNotDoneMission() {
                         elevation = 2.dp,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(20.dp)
+                            .padding(start = 20.dp, end = 20.dp, bottom = 7.dp, top = 7.dp)
                             .background(Color.Transparent),
 
                         ) {
@@ -238,6 +236,10 @@ fun showNotDoneMission() {
 
                             Text(text = "${mission.name}")
 
+                            Button(onClick = { navController.navigate("${Routes.SelectMission.route}/${toJson(mission)}") }) {
+                                Text("NAVIGATIOn")
+                            }
+
                             Column(
                                 Modifier
                                     .fillMaxHeight()
@@ -263,7 +265,7 @@ fun showNotDoneMission() {
                 },
                 directions = setOf(DismissDirection.EndToStart, DismissDirection.StartToEnd),
             )
-       }
+        }
 
     }
     /*** Set Direction to dismiss */

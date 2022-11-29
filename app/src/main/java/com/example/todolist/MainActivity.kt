@@ -1,7 +1,12 @@
 package com.example.todolist
 
+import android.app.Activity
+import android.app.Fragment
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
@@ -35,4 +40,14 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+}
+
+
+fun Activity.hideKeyboard() {
+    hideKeyboard(currentFocus ?: View(this))
+}
+
+fun Context.hideKeyboard(view: View) {
+    val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+    inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
 }
