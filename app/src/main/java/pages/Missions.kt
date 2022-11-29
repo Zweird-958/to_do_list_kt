@@ -109,8 +109,6 @@ fun showNotDoneMission(navController: NavHostController) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         items(notDoneMissions) { mission ->
-
-
             val targetEnd = DismissValue.DismissedToEnd
             val targetStart = DismissValue.DismissedToStart
             val dismissState =
@@ -223,6 +221,8 @@ fun showNotDoneMission(navController: NavHostController) {
 
                             val state = remember { mutableStateOf(false) }
                             state.value = mission.done
+
+
 
                             /*Checkbox(
                                 checked = state.value,

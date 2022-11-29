@@ -8,17 +8,25 @@ import components.notDoneMissions
 import components.saveData
 import java.util.*
 
-class MissionClass(name: String, toDo: SnapshotStateList<String>) {
+class MissionClass(name: String, toDo: SnapshotStateList<String>, links: SnapshotStateList<String>) {
 
     var name = name
     var priority = notDoneMissions.size + 1
     var done = false
-    val toDo = toDo
+    var toDo = toDo
+    var links = links
 
     fun addToList(){
         priority = notDoneMissions.size
         allMissions += this
         notDoneMissions += this
+        saveData()
+    }
+
+    fun update(name: String, toDo: SnapshotStateList<String>, links: SnapshotStateList<String>){
+        this.name = name
+        this.toDo = toDo
+        this.links = links
         saveData()
     }
 

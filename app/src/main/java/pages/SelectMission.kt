@@ -5,16 +5,17 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import components.updateButton
 import kotlinclasses.toClass
+import missionInformations
 
 
 @SuppressLint("UnrememberedMutableState")
@@ -67,17 +68,38 @@ fun SelectMission(navController: NavHostController, missionSelected: String?) {
                 rememberText = nameState
             )*/
 
-
-            LazyColumn(modifier = Modifier.height(50.dp)) {
-                if (mission != null) {
-                    items(mission.toDo) { itemDo ->
-                        Text(itemDo, color = MaterialTheme.colors.secondaryVariant)
-                    }
-                }
-
+            val nameState = remember {
+                mutableStateOf("")
+            }
+            if (mission != null) {
+                nameState.value = mission.name
             }
 
+            // Missions to do
+
+            var toDo: SnapshotStateList<String> = remember {
+                mission?.toDo ?: mutableStateListOf()
+            }
+
+            val toDoState = remember {
+                mutableStateOf("")
+            }
+
+            var links: SnapshotStateList<String> = remember {
+                mission?.links ?: mutableStateListOf()
+            }
+
+            val linksState = remember {
+                mutableStateOf("")
+            }
+
+            missionInformations(nameState = nameState,toDo,toDoState,links,linksState)
+
             // Change Informations
+
+            if (mission != null) {
+                updateButton(mission,nameState,toDo,links,navController)
+            }
 
 
         }

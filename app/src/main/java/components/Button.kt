@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.todolist.hideKeyboard
 import kotlinclasses.MissionClass
+import missionInformations
 import pages.Routes
 
 @Composable
@@ -23,7 +24,8 @@ fun createButton(
     baseText: String,
     navController: NavHostController,
     missionName: MutableState<String>,
-    toDo: SnapshotStateList<String>
+    toDo: SnapshotStateList<String>,
+    links: SnapshotStateList<String>
 ) {
     Button(
         //modifier = Modifier.width(15.dp),
@@ -32,7 +34,7 @@ fun createButton(
             contentColor = MaterialTheme.colors.onSecondary
         ),
         onClick = {
-            MissionClass(missionName.value, toDo).addToList()
+            MissionClass(missionName.value, toDo, links).addToList()
             navController.navigate(Routes.Missions.route)
             mainActivity?.hideKeyboard()
         },
@@ -61,6 +63,9 @@ fun toDoButton(
             contentColor = MaterialTheme.colors.onSecondary
         ),
         onClick = {
+            if (toDoName.value == "") {
+                return@Button
+            }
             toDo.add(toDoName.value)
             toDoName.value = ""
             mainActivity?.hideKeyboard()
@@ -94,5 +99,30 @@ fun priorityButton(mission: MissionClass, increase: Boolean, icon: ImageVector) 
             colorFilter = ColorFilter.tint(color = MaterialTheme.colors.secondaryVariant)
         )
 
+    }
+}
+
+@Composable
+fun updateButton(
+    mission: MissionClass,
+    name: MutableState<String>,
+    toDo: SnapshotStateList<String>,
+    links: SnapshotStateList<String>,
+    navController: NavHostController,
+) {
+    Button(
+        onClick = {
+            println("==============MISSION")
+            println(mission.name)
+            mission.update(name.value,toDo,links)
+            navController.navigate(Routes.Missions.route)
+            mainActivity?.hideKeyboard()
+        },
+        //enabled = false,
+        border = BorderStroke(0.dp, Color.Transparent),
+        colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary),
+
+        ) {
+        Text("Update", color = Color.White)
     }
 }

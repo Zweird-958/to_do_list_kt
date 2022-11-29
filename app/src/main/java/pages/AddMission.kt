@@ -5,12 +5,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.runtime.*
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
@@ -18,9 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import components.OutlineInput
 import components.createButton
-import components.toDoButton
+import missionInformations
 
 
 @SuppressLint("UnrememberedMutableState")
@@ -58,12 +52,8 @@ fun AddMissions(navController: NavHostController) {
             val nameState = remember {
                 mutableStateOf("")
             }
-            OutlineInput(
-                yourLabel = "Name",
-                icon = Icons.Default.Add,
-                description = "",
-                rememberText = nameState
-            )
+
+            // Missions to do
 
             var toDo: SnapshotStateList<String> = remember {
                 mutableStateListOf()
@@ -72,34 +62,35 @@ fun AddMissions(navController: NavHostController) {
             val toDoState = remember {
                 mutableStateOf("")
             }
-            OutlineInput(
-                yourLabel = "To Do",
-                icon = Icons.Default.Check,
-                description = "",
-                rememberText = toDoState
-            )
 
-            toDoButton(baseText = "Add To Do", toDoName = toDoState, toDo = toDo)
+            var links: SnapshotStateList<String> = remember {
+                mutableStateListOf()
+            }
 
+            val linksState = remember {
+                mutableStateOf("")
+            }
 
+            missionInformations(nameState = nameState,toDo,toDoState,links,linksState)
 
-            LazyColumn(modifier = Modifier.height(50.dp)) {
-                items(toDo) { itemDo ->
-                    Text(itemDo, color = MaterialTheme.colors.secondaryVariant)
-                }
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                createButton(
+                    baseText = "Create",
+                    navController = navController,
+                    missionName = nameState,
+                    toDo = toDo,
+                    links = links
+                )
 
             }
 
-            createButton(
-                baseText = "Create",
-                navController = navController,
-                missionName = nameState,
-                toDo = toDo
-            )
+
         }
-
-
     }
 
 
 }
+

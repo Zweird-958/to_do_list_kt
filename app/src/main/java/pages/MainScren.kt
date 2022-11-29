@@ -29,7 +29,7 @@ fun ScreenMain() {
 
         composable(Routes.AddMission.route) {
             AddMissions(navController)
-            BackHandler(false) {} // Autoriqer le retour en arrière
+            BackHandler(false) {} // Autoriser le retour en arrière
         }
 
         composable(Routes.MissionsDone.route) {
@@ -44,6 +44,7 @@ fun ScreenMain() {
             })
         ) {
             SelectMission(navController, it.arguments?.getString("mission"))
+            BackHandler(false) {} // Autoriser le retour en arrière
         }
 
 
