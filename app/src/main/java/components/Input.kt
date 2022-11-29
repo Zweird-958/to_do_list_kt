@@ -3,6 +3,7 @@ package components
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.MaterialTheme.colors
@@ -17,10 +18,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalAutofill
 import androidx.compose.ui.platform.LocalAutofillTree
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.todolist.ui.theme.Purple200
 
@@ -47,7 +51,13 @@ fun ClassicInput() {
 fun OutlineInput(yourLabel: String, icon: ImageVector, description: String,
                   rememberText: MutableState<String>) {
 
+    val configuration = LocalConfiguration.current
+
+    val screenHeight = configuration.screenHeightDp.dp
+    val screenWidth = configuration.screenWidthDp.dp
+
     TextField(
+        modifier = Modifier.width(200.dp),
         value = rememberText.value,
         onValueChange = {
             rememberText.value = it
@@ -58,3 +68,4 @@ fun OutlineInput(yourLabel: String, icon: ImageVector, description: String,
 
         )
 }
+
