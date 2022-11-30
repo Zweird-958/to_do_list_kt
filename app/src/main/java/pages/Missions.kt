@@ -1,5 +1,6 @@
 package pages
 
+import HeaderText
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
@@ -24,6 +25,7 @@ import components.BottomBar
 import components.allMissions
 import components.notDoneMissions
 import components.priorityButton
+import kotlinclasses.MissionClass
 import kotlinclasses.toJson
 
 
@@ -65,26 +67,7 @@ fun Missions(navController: NavHostController) {
     )
     {
 
-
-        Column(
-            modifier = Modifier
-                .background(MaterialTheme.colors.primary)
-                .fillMaxWidth()
-                .padding(top = 40.dp, bottom = 40.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-
-            Text(text = "Missions")
-            /*
-            Button(onClick = { saveData() }) {
-               Text("Sava Data")
-            }
-            Button(onClick = { getData() }) {
-                Text("Load Data")
-            }*/
-
-        }
+        HeaderText("Missions")
 
         Column(Modifier.fillMaxSize()) {
 
@@ -207,7 +190,7 @@ fun showNotDoneMission(navController: NavHostController) {
                             .fillMaxWidth()
                             .padding(start = 20.dp, end = 20.dp, bottom = 7.dp, top = 7.dp)
                             .background(Color.Transparent)
-                            .clickable { navController.navigate("${Routes.SelectMission.route}/${toJson(mission)}") },
+                            .clickable { navController.navigate("${Routes.SelectMission.route}/${allMissions.indexOf(mission)}") },
 
                         ) {
                         Row(
@@ -233,8 +216,6 @@ fun showNotDoneMission(navController: NavHostController) {
                                 },
                                 colors = CheckboxDefaults.colors(MaterialTheme.colors.primary)
                             )*/
-
-
 
                             Text(text = "${mission.name}", modifier = Modifier.width(200.dp))
 

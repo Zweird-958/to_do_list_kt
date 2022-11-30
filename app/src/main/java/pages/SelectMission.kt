@@ -1,5 +1,6 @@
 package pages
 
+import HeaderText
 import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -13,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import components.allMissions
 import components.updateButton
 import kotlinclasses.toClass
 import missionInformations
@@ -21,13 +23,20 @@ import missionInformations
 @SuppressLint("UnrememberedMutableState")
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun SelectMission(navController: NavHostController, missionSelected: String?) {
+fun SelectMission(navController: NavHostController, missionSelected: Int) {
+
+    println("================================")
+
+    println(missionSelected)
+
+
+
 
     if (missionSelected == null) {
         navController.navigate(Routes.Missions.route)
     }
 
-    val mission = toClass(missionSelected)
+    val mission = allMissions[missionSelected]
 
     Column(
         modifier = Modifier
@@ -35,21 +44,7 @@ fun SelectMission(navController: NavHostController, missionSelected: String?) {
     )
     {
 
-
-        Column(
-            modifier = Modifier
-                .background(MaterialTheme.colors.primary)
-                .fillMaxWidth()
-                .padding(top = 40.dp, bottom = 40.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-
-            if (missionSelected != null && mission != null) {
-                Text(text = mission.name, color = Color.White)
-            }
-
-        }
+        HeaderText(mission.name)
 
         Column(
             Modifier
@@ -93,12 +88,18 @@ fun SelectMission(navController: NavHostController, missionSelected: String?) {
                 mutableStateOf("")
             }
 
-            missionInformations(nameState = nameState,toDo,toDoState,links,linksState)
+            missionInformations(nameState = nameState, toDo, toDoState, links, linksState)
 
             // Change Informations
 
             if (mission != null) {
-                updateButton(mission,nameState,toDo,links,navController)
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center
+                ){
+                    updateButton(mission, nameState, toDo, links, navController)
+
+                }
             }
 
 

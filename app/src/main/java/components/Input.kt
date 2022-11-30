@@ -4,6 +4,7 @@ import android.view.KeyEvent.KEYCODE_ENTER
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -16,6 +17,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.todolist.hideKeyboard
 import com.example.todolist.ui.theme.Purple200
@@ -50,6 +52,9 @@ fun OutlineInput(
     val screenHeight = configuration.screenHeightDp.dp
     val screenWidth = configuration.screenWidthDp.dp
 
+
+
+
     TextField(
         modifier = Modifier.width(200.dp)
             .onKeyEvent {
@@ -67,7 +72,7 @@ fun OutlineInput(
         },
         leadingIcon = { Icon(imageVector = icon, contentDescription = description) },
         label = { Text(text = yourLabel, color = MaterialTheme.colors.primary) },
-        colors = TextFieldDefaults.textFieldColors(textColor = Color.White)
+        colors = TextFieldDefaults.textFieldColors(textColor = MaterialTheme.colors.secondaryVariant)
 
         )
 }

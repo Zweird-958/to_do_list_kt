@@ -40,10 +40,10 @@ fun ScreenMain() {
         composable(
             "${Routes.SelectMission.route}/{mission}",
             arguments = listOf(navArgument("mission") {
-                type = NavType.StringType
+                type = NavType.IntType
             })
         ) {
-            SelectMission(navController, it.arguments?.getString("mission"))
+            it.arguments?.getInt("mission")?.let { it1 -> SelectMission(navController, it1) }
             BackHandler(false) {} // Autoriser le retour en arrière
         }
 

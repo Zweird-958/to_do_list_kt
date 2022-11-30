@@ -6,7 +6,9 @@ import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
+import com.example.todolist.ui.theme.Gray200
 import pages.Routes
 
 
@@ -28,17 +30,21 @@ fun TopBar(navController: NavHostController, label:String) {
     )
 }
 
+fun getColor(currentRoute: String?, selectRoute: String): Color {
+    return if (currentRoute == selectRoute) Gray200 else Color.White
+}
+
 @Composable
 fun BottomBar(navController: NavHostController) {
     val currentRoute = navController.currentDestination?.route
     val test = navController.graph
     val test2 = navController.backQueue
-    BottomAppBar () {
+    BottomAppBar (backgroundColor = MaterialTheme.colors.primary) {
 
         BottomNavigationItem(icon = {Column(
                 verticalArrangement = Arrangement.Center
         ) {
-            Icon(imageVector = Icons.Default.Close,"")
+            Icon(imageVector = Icons.Default.Close,"", tint = getColor(currentRoute,Routes.Missions.route))
         }
         },
             //label = { /*Text(text = "Account") */},
@@ -56,7 +62,7 @@ fun BottomBar(navController: NavHostController) {
         BottomNavigationItem(icon = {Column(
             verticalArrangement = Arrangement.Center
         ) {
-            Icon(imageVector = Icons.Default.Check,"")
+            Icon(imageVector = Icons.Default.Check,"", tint = getColor(currentRoute,Routes.MissionsDone.route))
         }
         },
             //label = { /*Text(text = "Account") */},

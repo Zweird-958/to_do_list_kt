@@ -1,5 +1,6 @@
 package pages
 
+import HeaderText
 import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -29,18 +30,8 @@ fun AddMissions(navController: NavHostController) {
     {
 
 
-        Column(
-            modifier = Modifier
-                .background(MaterialTheme.colors.primary)
-                .fillMaxWidth()
-                .padding(top = 40.dp, bottom = 40.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
+        HeaderText("Add New Mission")
 
-            Text(text = "Add New Mission", color = Color.White)
-
-        }
 
         Column(
             Modifier

@@ -1,11 +1,13 @@
 package pages
 
+import HeaderText
 import android.os.Build
 import android.widget.CheckBox
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -34,7 +36,7 @@ fun MissionsDoneScaffold(navController: NavHostController) {
     Scaffold(
         //topBar = { TopBar(navController, "Calendar") },
         content = {
-            MissionsDone()
+            MissionsDone(navController)
         },
         bottomBar = { BottomBar(navController) }
     )
@@ -43,7 +45,7 @@ fun MissionsDoneScaffold(navController: NavHostController) {
 @OptIn(ExperimentalMaterialApi::class)
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun MissionsDone() {
+fun MissionsDone(navController: NavHostController) {
 
     Column(
         modifier = Modifier
@@ -52,22 +54,11 @@ fun MissionsDone() {
     {
 
 
-        Column(
-            modifier = Modifier
-                .background(MaterialTheme.colors.primary)
-                .fillMaxWidth()
-                .padding(top = 40.dp, bottom = 40.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-
-            Text(text = "Done Missions")
-
-        }
+        HeaderText("Dones Missions")
 
         Column(Modifier.fillMaxSize()) {
 
-            showDoneMission()
+            showDoneMission(navController)
 
             }
 
@@ -78,7 +69,7 @@ fun MissionsDone() {
 
 @ExperimentalMaterialApi
 @Composable
-fun showDoneMission() {
+fun showDoneMission(navController: NavHostController) {
 
 
     LazyColumn(
@@ -191,7 +182,8 @@ fun showDoneMission() {
                             .fillMaxWidth()
                             .padding(start = 20.dp, end = 20.dp, bottom = 7.dp, top = 7.dp)
                             .height(80.dp)
-                            .background(Color.Transparent),
+                            .background(Color.Transparent)
+                        .clickable { navController.navigate("${Routes.SelectMission.route}/${allMissions.indexOf(mission)}") },
 
                         ) {
                         Row(
